@@ -7,7 +7,7 @@ async def remove_image_num(msg):
     pattern = re.compile('\[CQ:image,file=(\w|\d)*\.image,url=https://gchat.qpic.cn/(\w|\d|\/|-|_|\?|=|,)*\]')
     result = pattern.sub(lambda match : match.group().split(',url=')[0] + r"]}", msg)
     # 防止操作系统换行符不同导致的问题
-    return result.replace('\r\n', '').replace('\n', '')
+    return result.replace('\r\n', '\n')
 
 async def repeat_whisper(user_id : int, times : int) -> Message:
     '''user_id : 用户的QQ号 times : 已经复读的次数'''
