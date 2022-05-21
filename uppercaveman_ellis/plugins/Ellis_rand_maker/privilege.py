@@ -6,5 +6,5 @@ async def Role_rand(event: Event) -> bool:
     try :
         useless, group_id, user_id = session_id.split('_')
     except ValueError:
-        group_id = '__WTF?'
+        group_id = -1
     return int(group_id) in Rand_groups

@@ -1,5 +1,6 @@
 from nonebot import on_message
 from nonebot.adapters.onebot.v11 import Event, Message
+from nonebot.permission import SUPERUSER
 from nonebot.log import logger
 from .privilege import Role_RepeatJudger
 from .source_data import repeat_interrupt, repeat_whisper, remove_image_num
@@ -15,7 +16,6 @@ async def repeat_judger(event : Event) -> None:
     group_id, user_id = int(group_id), int(user_id)
     msg = str(event.get_message())
     msg = await remove_image_num(msg)
-
     # 若消息集合中没有这个群的信息, 新建一个
     if group_id not in E_messsage: 
         E_messsage[group_id] = {'text' : msg, 'times' : 0}

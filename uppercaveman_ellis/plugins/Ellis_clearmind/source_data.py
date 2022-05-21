@@ -1,11 +1,12 @@
 import numpy as np
 import random
 import cv2
+from ..global_args import ClearMine_pic_path
 from nonebot.log import logger
 
 class ClearMine:
     dir = ((0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1))
-    def __init__(self, sz : int = 6, num : int = 8, path : str = 'uppercaveman_ellis/source/clearmind/', outpath  : str = '../../nonebot/usr/local/bin/data/images/') -> None:
+    def __init__(self, sz : int = 6, num : int = 8, path : str = ClearMine_pic_path['src'], outpath  : str = ClearMine_pic_path['out']) -> None:
         '''sz : 雷区大小(sz x sz) num : 雷的数量  path : 图源路径  outpath : 输出图路径'''
         self.cfg(sz, num)
         self.__MINE = 0x7fffffff

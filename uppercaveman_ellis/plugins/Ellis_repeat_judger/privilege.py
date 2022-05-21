@@ -6,5 +6,5 @@ async def Role_RepeatJudger(event: Event) -> bool:
     try :
         useless, group_id, user_id = session_id.split('_')
     except ValueError:
-        group_id = '__WTF?'
+        group_id = -1
     return int(group_id) in Repeat_judger_args_dic['privilege']
