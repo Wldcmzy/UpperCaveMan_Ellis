@@ -4,6 +4,8 @@
 
 一个简单的qqbot
 
+![sample01](README/sample01.png)
+
 # 当前功能
 
 ## 主动请求型
