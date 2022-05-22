@@ -58,12 +58,35 @@ Repeat_judger_args_dic = {
     },
 }
 
+# 轻量备忘录权限参数,群号写在这里面的群才有资格使用备忘录
+# 默认拥有SUPERUSER权限的用户可以操作[所有][有备忘录权限的]群的备忘录
+# 'allow_owner' : 允许群主操作开关
+# 'allow_owner' : 允许管理员操作开关
+# 'allow_users' : 允许操作本群备忘录的群成员集合
 Memorandum_groups_users = {
     793832002 : { # 火火火/洞口骑士死路求生
         'allow_owner' : False,
         'allow_admin' : False,
         'allow_users' : {
-            3457922487,
+            3457922487, # Ai-予人以爱
+            1139198820, # tqc
+            1527148777, # xxy
+            1416995841, # rxj
         },
     },
+    871127578 : { # 水水水
+        'allow_owner' : False,
+        'allow_admin' : False,
+        'allow_users' : {
+            
+        }
+    },
+    904494576 : { # 光之国
+        'allow_owner' : True,
+        'allow_admin' : True,
+        'allow_users' : {
+            
+        }
+    }
 }
+Memorandum_data_path = '../Ellis_hide_source/memorandum_data/'

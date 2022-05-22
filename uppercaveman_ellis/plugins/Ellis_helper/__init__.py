@@ -11,5 +11,6 @@ E_help_window = on_command('help', aliases={'帮助'})
 @E_help_window.handle()
 async def clearmine(args : Message = CommandArg()) -> None:
     if args.extract_plain_text() == '':
-        reply_text = await Help_tip()
-        await E_help_window.finish(reply_text)
+        reply_text_list = await Help_tip()
+        for each_reply_text in reply_text_list:
+            await E_help_window.send(each_reply_text)
