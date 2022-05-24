@@ -1,7 +1,6 @@
 from nonebot.adapters.onebot.v11 import Message
 import re
 
-# 网上抄了一个处理图片的函数
 # 利用正则匹配所有信息中的图片信息并去除url
 async def remove_image_num(msg):
     pattern = re.compile('\[CQ:image,file=(\w|\d)*\.image,url=https://gchat.qpic.cn/(\w|\d|\/|-|_|\?|=|,)*\]')

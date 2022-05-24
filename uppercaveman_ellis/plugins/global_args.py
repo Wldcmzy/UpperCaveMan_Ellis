@@ -90,3 +90,23 @@ Memorandum_groups_users = {
     }
 }
 Memorandum_data_path = '../Ellis_hide_source/memorandum_data/'
+
+# 可以使用CV简单操作图片的群
+CV_groups = {
+    793832002, # 火火火/洞口骑士死路求生
+    904494576, # 光之国
+    770769550, # steam特色喜加一
+    871127578, # 水水水
+}
+
+# CV图片路径
+CV_pic_path = {
+    'src' : 'uppercaveman_ellis/source/CV_download_temp/', # 图源(下载)路径
+    'out' : '../../nonebot/usr/local/bin/data/images/CVtemp/', # 输出图路径(对应go-cqhttp图片路径)
+    'extra' : 'CVtemp/', # out中images后面的路径
+}
+
+# CV库处理图片默认大小
+CV_pic_size = {
+    'default_long_edge' : 125,
+}

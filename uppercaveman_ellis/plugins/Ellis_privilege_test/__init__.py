@@ -10,7 +10,6 @@ E_matcher = on_command("测试权限", aliases={'权限测试'})
 
 @E_matcher.handle()
 async def _(event: Event, args : Message = CommandArg()):
-    msg = str(event.get_event_description())
     if args.extract_plain_text() == '':
         useless, group_id, user_id = event.get_session_id().split('_')
         bot = nonebot.get_bot()
