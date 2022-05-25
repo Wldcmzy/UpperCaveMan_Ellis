@@ -42,7 +42,7 @@ async def cv_flip(state : T_State, url = Arg('url'), op : str = Arg('operation')
         fname = await download_pic(url)
         if op[ : 8] == 'fliphalf':
             method = 'u'
-            if op[8] in 'lrud': method = op[8]
+            if len(op) > 8 and op[8] in 'lrud': method = op[8]
             CQname = await E_fliphalf(fname, method)
         else:
             axis = -1
