@@ -101,12 +101,13 @@ CV_groups = {
 
 # CV图片路径
 CV_pic_path = {
-    'src' : 'uppercaveman_ellis/source/CV_download_temp/', # 图源(下载)路径
+    'src' : '../Ellis_hide_source/CV_download/', # 图源(下载)路径
     'out' : '../../nonebot/usr/local/bin/data/images/CVtemp/', # 输出图路径(对应go-cqhttp图片路径)
     'extra' : 'CVtemp/', # out中images后面的路径
 }
 
-# CV库处理图片默认大小
-CV_pic_size = {
-    'default_long_edge' : 125,
+# CV库处理图片默认大小, 画质等
+CV_pic_arg = {
+    'default_long_edge' : 200,
+    'jpg_qulity' : 90
 }

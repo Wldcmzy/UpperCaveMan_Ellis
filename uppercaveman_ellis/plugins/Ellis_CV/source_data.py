@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 from numpy import ndarray
 from nonebot.log import logger
-from ..global_args import CV_pic_path, CV_pic_size
+from ..global_args import CV_pic_path, CV_pic_arg
 from ..E_tools import form_time_string
 
 CV_n_Iter = 0
@@ -19,13 +19,13 @@ async def resize_by_long_edge(img : ndarray) -> ndarray:
     new_H, new_W = 50, 50
     if len(img.shape) == 2: H, W = img.shape
     else: H, W, D = img.shape
-    if CV_pic_size['default_long_edge'] > max(H, W): return img
+    if CV_pic_arg['default_long_edge'] > max(H, W): return img
     if H > W:
-        multi = CV_pic_size['default_long_edge'] / H
-        new_H, new_W = int(CV_pic_size['default_long_edge']), int(W * multi)
+        multi = CV_pic_arg['default_long_edge'] / H
+        new_H, new_W = int(CV_pic_arg['default_long_edge']), int(W * multi)
     else:
-        multi = CV_pic_size['default_long_edge'] / W
-        new_H, new_W = int(H * multi), int(CV_pic_size['default_long_edge'])
+        multi = CV_pic_arg['default_long_edge'] / W
+        new_H, new_W = int(H * multi), int(CV_pic_arg['default_long_edge'])
     img = cv2.resize(img, (new_W, new_H))
     return img
 
@@ -55,7 +55,7 @@ async def E_flip(file_name : str, axis : int = -1) -> str:
     if img is None: return '暂时改不了动图~'
     img = await resize_by_long_edge(img)
     img = cv2.flip(img, axis)
-    cv2.imwrite(CV_pic_path['out'] + file_name, img, [int(cv2.IMWRITE_JPEG_QUALITY), 70])
+    cv2.imwrite(CV_pic_path['out'] + file_name, img, [int(cv2.IMWRITE_JPEG_QUALITY), CV_pic_arg['jpg_qulity']])
     return f'[CQ:image,file={CV_pic_path["extra"]}{file_name}]'
 
 async def E_fliphalf(file_name : str, method = 'u') -> str:
@@ -79,7 +79,7 @@ async def E_fliphalf(file_name : str, method = 'u') -> str:
     elif method == 'l':
         half = img[ : , : W // 2 ]
         img = np.hstack((half, cv2.flip(half, 1)))
-    cv2.imwrite(CV_pic_path['out'] + file_name, img, [int(cv2.IMWRITE_JPEG_QUALITY), 70])
+    cv2.imwrite(CV_pic_path['out'] + file_name, img, [int(cv2.IMWRITE_JPEG_QUALITY), CV_pic_arg['jpg_qulity']])
     return f'[CQ:image,file={CV_pic_path["extra"]}{file_name}]'
 
 async def E_gray(file_name : str) -> str:
@@ -88,10 +88,11 @@ async def E_gray(file_name : str) -> str:
     gray = cv2.imread(CV_pic_path['src'] + file_name, 0)
     if gray is None: return '暂时改不了动图~'
     gray = await resize_by_long_edge(gray)
-    cv2.imwrite(CV_pic_path['out'] + file_name, gray, [int(cv2.IMWRITE_JPEG_QUALITY), 70])
+    cv2.imwrite(CV_pic_path['out'] + file_name, gray, [int(cv2.IMWRITE_JPEG_QUALITY), CV_pic_arg['jpg_qulity']])
     return f'[CQ:image,file={CV_pic_path["extra"]}{file_name}]'
 
 async def E_binary(file_name : str, method : int = 1) -> str:
+    if method > 5: method = 1
     if not os.path.exists(CV_pic_path['out']):
         os.makedirs(CV_pic_path['out'])
     gray = cv2.imread(CV_pic_path['src'] + file_name, 0)
@@ -117,11 +118,12 @@ async def E_binary(file_name : str, method : int = 1) -> str:
         #大于阈值变为阈值
         ret, threshed = cv2.threshold(gray,thresh,maxval,cv2.THRESH_TRUNC) 
 
-    cv2.imwrite(CV_pic_path['out'] + file_name, threshed, [int(cv2.IMWRITE_JPEG_QUALITY), 70])
+    cv2.imwrite(CV_pic_path['out'] + file_name, threshed, [int(cv2.IMWRITE_JPEG_QUALITY), CV_pic_arg['jpg_qulity']])
     return f'[CQ:image,file={CV_pic_path["extra"]}{file_name}]'
 
 
 async def E_blur(file_name : str, method : int = 1) -> str:
+    if method > 4: method = 1
     if not os.path.exists(CV_pic_path['out']):
         os.makedirs(CV_pic_path['out'])
     img = cv2.imread(CV_pic_path['src'] + file_name, 1)
@@ -129,18 +131,18 @@ async def E_blur(file_name : str, method : int = 1) -> str:
     img = await resize_by_long_edge(img)
     if method == 1:
         #均值滤波
-        img = cv2.blur(img,(19,19))
+        img = cv2.blur(img, (9 ,9))
     elif method == 2:
         #方框滤波 当normallize为True时等同于均值滤波
-        img = cv2.boxFilter(img,-1,(19,19),normalize = False)
+        img = cv2.boxFilter(img, -1, (9, 9), normalize = False)
     elif method == 3:
         #高斯滤波
-        img = cv2.GaussianBlur(img,(19,19),sigmaX = 97)
+        img = cv2.GaussianBlur(img, (9, 9), sigmaX = 97)
     elif method == 4:
         #中值滤波
-        img = cv2.medianBlur(img,19)
+        img = cv2.medianBlur(img, 9)
 
-    cv2.imwrite(CV_pic_path['out'] + file_name, img, [int(cv2.IMWRITE_JPEG_QUALITY), 70])
+    cv2.imwrite(CV_pic_path['out'] + file_name, img, [int(cv2.IMWRITE_JPEG_QUALITY), CV_pic_arg['jpg_qulity']])
     return f'[CQ:image,file={CV_pic_path["extra"]}{file_name}]'
 
 
@@ -151,5 +153,5 @@ async def E_canny(file_name : str) -> str:
     if img is None: return '暂时改不了动图~'
     img = await resize_by_long_edge(img)
     img = cv2.Canny(img, 80, 130)
-    cv2.imwrite(CV_pic_path['out'] + file_name, img, [int(cv2.IMWRITE_JPEG_QUALITY), 70])
+    cv2.imwrite(CV_pic_path['out'] + file_name, img, [int(cv2.IMWRITE_JPEG_QUALITY), CV_pic_arg['jpg_qulity']])
     return f'[CQ:image,file={CV_pic_path["extra"]}{file_name}]'

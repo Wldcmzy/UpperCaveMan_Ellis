@@ -58,7 +58,7 @@ async def Help_tip() -> list:
     ret += '定向命令:否, 关键词检测:否, 完全匹配:否\n'
     ret += '功能1: (反转) flip(默认xy) flipxy flipx flipy fliphalf(默认u, uldr四个方向)\n'
     ret += '功能2: (灰度图) gray\n'
-    ret += '功能3: (二值化, 参数固定) binary(默认方式1, 5个可选方式, 详细太长了, 不想写出来)\n'
+    ret += '功能3: (二值化, 参数固定) binary(默认方式1, 5个可选方式, 详细太长, 不想写)\n'
     ret += '功能4: (滤波, 参数固定) blur(默认方式1, 4个可选方式, 均值, 方盒, 高斯, 中值)\n'
     ret += '功能5: (边缘检测, 参数固定) canny\n'
 
