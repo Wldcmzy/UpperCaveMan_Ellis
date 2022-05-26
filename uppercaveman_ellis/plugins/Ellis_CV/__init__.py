@@ -1,5 +1,4 @@
-from os import stat
-from cv2 import log
+
 from nonebot import on_command
 from nonebot.params import CommandArg, Arg, ArgStr
 from nonebot.typing import T_State

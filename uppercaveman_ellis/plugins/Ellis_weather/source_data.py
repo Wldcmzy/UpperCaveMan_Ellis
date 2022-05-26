@@ -29,7 +29,7 @@ async def get_weather(pos : str) -> str:
         else:
             ret += '\n加油, 奥里给!\n'
     except Exception as e:
-        ret = '呜呜呜~\n出错了:' + str(e) + f'\n中华万年历里有这个地方吗?\n地点:{pos}'
+        ret = '呜呜呜~ 出错了\n:' + str(type(e)) + str(e) + f'\n中华万年历里有这个地方吗?\n地点:{pos}'
     return ret 
 
 
