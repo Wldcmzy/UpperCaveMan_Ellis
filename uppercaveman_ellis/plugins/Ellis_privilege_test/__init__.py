@@ -5,8 +5,13 @@ from nonebot.adapters.onebot.v11 import Event, Message
 from nonebot.adapters.onebot.v11 import GROUP_ADMIN, GROUP_OWNER
 from nonebot.params import CommandArg
 from nonebot.log import logger
+from ..global_args import PRIORITY_NORMAL
 
-E_matcher = on_command("测试权限", aliases={'权限测试'})
+E_matcher = on_command(
+    "测试权限", 
+    aliases={'权限测试'},
+    priority=PRIORITY_NORMAL    
+)
 
 @E_matcher.handle()
 async def _(event: Event, args : Message = CommandArg()):

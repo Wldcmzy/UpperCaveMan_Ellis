@@ -5,6 +5,7 @@ from nonebot.typing import T_State
 from nonebot.adapters.onebot.v11 import Event, Message
 from nonebot.log import logger
 from .privilege import Role_CV
+from ..global_args import PRIORITY_NORMAL
 from .source_data import ( 
     E_binary,
     E_blur,
@@ -16,10 +17,14 @@ from .source_data import (
     E_gray,
 )
 
-#===============================================
+# ==============================================
 # 图片反转/反转一半
 
-E_cv_flip = on_command('flip', rule=Role_CV)
+E_cv_flip = on_command(
+    'flip', 
+    rule=Role_CV, 
+    priority=PRIORITY_NORMAL,
+)
 @E_cv_flip.handle()
 async def cv_flip_pre(event : Event, state: T_State) -> None:
     msg = str(event.get_message())
@@ -55,7 +60,11 @@ async def cv_flip(state : T_State, url = Arg('url'), op : str = Arg('operation')
 
 # ================================================
 # 生成灰度图
-E_cv_gray = on_command('gray', rule=Role_CV)
+E_cv_gray = on_command(
+    'gray', 
+    rule=Role_CV,
+    priority=PRIORITY_NORMAL,
+)
 @E_cv_gray.handle()
 async def cv_gray_pre(event : Event, state : T_State) -> None:
     msg = str(event.get_message())
@@ -78,7 +87,13 @@ async def cv_gray(state : T_State, url = Arg('url')):
         await E_cv_flip.finish('没有图')
 
 
-E_cv_binary = on_command('binary', rule=Role_CV)
+# ==============================================
+# 图片二值化
+E_cv_binary = on_command(
+    'binary', 
+    rule=Role_CV,
+    priority=PRIORITY_NORMAL,
+)
 @E_cv_binary.handle()
 async def cv_binary_pre(event : Event, state : T_State) -> None:
     msg = str(event.get_message())
@@ -105,7 +120,14 @@ async def cv_binary(state : T_State, url = Arg('url'), method_text : str = Arg('
         CQname = await E_binary(fname, method)
     await E_cv_flip.finish(Message(CQname))
 
-E_cv_blur = on_command('blur', rule=Role_CV)
+
+# ==============================================
+# 图片滤波
+E_cv_blur = on_command(
+    'blur', 
+    rule=Role_CV,
+    priority=PRIORITY_NORMAL,
+)
 @E_cv_blur.handle()
 async def cv_blur_pre(event : Event, state : T_State) -> None:
     msg = str(event.get_message())
@@ -132,8 +154,13 @@ async def cv_blur(state : T_State, url = Arg('url'), method_text : str = Arg('me
         CQname = await E_blur(fname, method)
     await E_cv_flip.finish(Message(CQname))
 
-
-E_cv_canny = on_command('canny', rule=Role_CV)
+# ==============================================
+# canny边缘检测
+E_cv_canny = on_command(
+    'canny', 
+    rule=Role_CV,
+    priority=PRIORITY_NORMAL,
+)
 @E_cv_canny.handle()
 async def cv_canny_pre(event : Event, state : T_State) -> None:
     msg = str(event.get_message())

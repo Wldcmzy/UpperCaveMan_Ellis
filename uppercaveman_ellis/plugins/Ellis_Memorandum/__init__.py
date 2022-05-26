@@ -5,13 +5,13 @@ from nonebot.adapters.onebot.v11 import Event, Message
 from nonebot.params import CommandArg
 from .privilege import Role_memorandum_modify, Role_memorandum_read
 from nonebot.log import logger
-import os
-from ..global_args import Memorandum_data_path
+from ..global_args import PRIORITY_NORMAL
 from .source_data import file_delete, file_read, file_write
 E_memorandum_write = on_command(
     '写入', 
     aliases={'记录'}, 
     rule=to_me() & Rule(Role_memorandum_modify),
+    priority=PRIORITY_NORMAL
 )
 
 @E_memorandum_write.handle()
@@ -26,6 +26,7 @@ async def memorandum_write(event : Event, args : Message = CommandArg()) -> None
 E_memorandum_delete = on_command(
     '删除', 
     rule=to_me() & Rule(Role_memorandum_modify),
+    priority=PRIORITY_NORMAL
 )
 
 @E_memorandum_delete.handle()
@@ -41,6 +42,7 @@ E_memorandum_read = on_command(
     '查看备忘录', 
     rule =to_me() & Rule(Role_memorandum_read),
     aliases={'查备忘录', '看备忘录', '查看'},
+    priority=PRIORITY_NORMAL
 )
 
 @E_memorandum_read.handle()

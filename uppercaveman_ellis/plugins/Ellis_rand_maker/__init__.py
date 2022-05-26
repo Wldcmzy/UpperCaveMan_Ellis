@@ -3,8 +3,14 @@ from nonebot.adapters.onebot.v11 import Event, Message
 from nonebot.params import CommandArg
 from .source_data import rand_speaker
 from .privilege import Role_rand
+from ..global_args import PRIORITY_NORMAL
 
-E_rand = on_command('rand ', aliases={'随机'}, rule=Role_rand)
+E_rand = on_command(
+    'rand ', 
+    aliases={'随机'}, 
+    rule=Role_rand,
+    priority=PRIORITY_NORMAL,
+)
 
 @E_rand.handle()
 async def E_rand_speaker(event : Event, args : Message = CommandArg()) -> None:    

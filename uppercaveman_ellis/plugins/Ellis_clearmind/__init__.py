@@ -3,12 +3,14 @@ from nonebot.adapters.onebot.v11 import Event, Message
 from nonebot.params import CommandArg
 from .source_data import ClearMine
 from .privilege import Role_clearmine
+from ..global_args import PRIORITY_NORMAL
 from nonebot.log import logger
 
 ClearMine_games = {}
 E_clearmind = on_command('clearmine',
                 aliases={'clearmind', '扫雷', '明镜止水之心'}, 
-                rule=Role_clearmine
+                rule=Role_clearmine,
+                priority=PRIORITY_NORMAL,
             )
 
 @E_clearmind.handle()

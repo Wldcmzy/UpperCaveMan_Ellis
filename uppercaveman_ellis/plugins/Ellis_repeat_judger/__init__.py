@@ -4,10 +4,13 @@ from nonebot.permission import SUPERUSER
 from nonebot.log import logger
 from .privilege import Role_RepeatJudger
 from .source_data import repeat_interrupt, repeat_whisper, remove_image_num
-from ..global_args import Repeat_judger_args_dic
+from ..global_args import Repeat_judger_args_dic, PRIORITY_PASSIVE
 
 E_messsage = {}
-E_repeat_judger = on_message(rule=Role_RepeatJudger)
+E_repeat_judger = on_message(
+    rule=Role_RepeatJudger,
+    priority=PRIORITY_PASSIVE
+)
 
 @E_repeat_judger.handle()
 async def repeat_judger(event : Event) -> None:

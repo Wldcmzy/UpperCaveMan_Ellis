@@ -4,8 +4,13 @@ from .source_data import int_sure, gcd, isprime, lcm, power, inverse_exgcd, inve
 from nonebot import on_command
 from nonebot.params import CommandArg, RawCommand
 from nonebot.adapters.onebot.v11 import Event, Message
+from ..global_args import PRIORITY_NORMAL
 
-E_math = on_command('gcd', aliases={'lcm', 'inv', 'pow', 'isprime'})
+E_math = on_command(
+    'gcd', 
+    aliases={'lcm', 'inv', 'pow', 'isprime'},
+    priority=PRIORITY_NORMAL,    
+)
 @E_math.handle()
 async def do_math(cmd : str = RawCommand(), arg_input : Message = CommandArg()) -> None:
     try:

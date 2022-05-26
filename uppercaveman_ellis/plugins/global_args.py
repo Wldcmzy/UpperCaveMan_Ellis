@@ -1,3 +1,11 @@
+# 优先级
+PRIORITY_RESPONSE_CD = 5
+PRIORITY_NORMAL = 30
+PRIORITY_PASSIVE = 60
+
+# 响应消息冷却时间
+PerUser_Response_CD = 1.5
+
 # 可以玩扫雷的群
 ClearMine_groups = {    
     793832002, # 火火火/洞口骑士死路求生
