@@ -39,7 +39,7 @@ async def Help_tip() -> list:
     ret += '定向命令:否, 关键词检测:否, 完全匹配:否\n'
     ret += '功能1: gcd 9 6 求最大公因数\n'
     ret += '功能2: lcm 9 6 求最小共倍数\n'
-    ret += '功能3: inv 7 11 exgcd求mod11时7的逆元, invfm(改用费马小定理求)\n'
+    ret += '功能3: inv 7 11 exgcd求mod11意义下7的逆元, invfm 7 11(改用费马小定理求)\n'
     ret += '功能4: pow 2 10 求2的10次幂(%998244353)\n'
     ret += '功能5: isprime x 判断x是不是素数\n'
     ret += '说明: 你的一切合法输入都会先对998244353取模\n'
