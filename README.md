@@ -68,7 +68,7 @@ xx的概率是xxx
 
 你能找到唐可可在哪吗？
 
-鸣谢：[nonebot_plugin_randomtkk](https://github.com/Wldcmzy/UpperCaveMan_Ellis/tree/ellis_rework/uppercaveman_ellis/plugins/nonebot_plugin_randomtkk)
+鸣谢：[MinatoAquaCrews/nonebot_plugin_randomtkk: Find Tan Kuku for nonebot2 beta from nonebot_instant_plugins (github.com)](https://github.com/MinatoAquaCrews/nonebot_plugin_randomtkk)
 
 ## 60秒读懂世界
 
