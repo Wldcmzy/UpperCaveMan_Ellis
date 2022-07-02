@@ -96,7 +96,7 @@ xx的概率是xxx
 
 没有人不喜欢玩wordle，如果有，就再来一道。
 
-鸣谢：[[noneplugin/nonebot-plugin-wordle: Nonebot2 wordle猜单词插件 (github.com)](https://github.com/noneplugin/nonebot-plugin-wordle)](https://github.com/Wldcmzy/UpperCaveMan_Ellis/tree/ellis_rework/uppercaveman_ellis/plugins/nonebot_plugin_wordle)
+鸣谢：[noneplugin/nonebot-plugin-wordle: Nonebot2 wordle猜单词插件 (github.com)](https://github.com/Wldcmzy/UpperCaveMan_Ellis/tree/ellis_rework/uppercaveman_ellis/plugins/nonebot_plugin_wordle)
 
 # 额外说明
 
