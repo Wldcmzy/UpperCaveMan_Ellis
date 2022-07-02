@@ -50,7 +50,7 @@ class RandomTkkHandler:
         if tkk_size >= 30:
             time = int(0.1 * (tkk_size - 30)**2 + 50)
         else:
-            time = int(1.7 * (tkk_size - 6.5) + 15)
+            time = int(1.7 * (tkk_size - 6.5) + 22)
         
         return time
     

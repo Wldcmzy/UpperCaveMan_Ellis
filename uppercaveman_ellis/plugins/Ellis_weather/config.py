@@ -14,10 +14,9 @@ class Time(BaseSettings):
 class Config(BaseSettings):
     # plugin custom config
     plugin_setting: str = "default"
-
-    daily_qq_friends: list[int]
-    daily_qq_groups: list[int]
-    daily_inform_time: list[Time()] = []
+    weather_qq_friends: list[int] = []
+    weather_qq_groups: list[int] = []
+    weather_inform_time: list[Time()] = []
 
     class Config:
         extra = Extra.allow

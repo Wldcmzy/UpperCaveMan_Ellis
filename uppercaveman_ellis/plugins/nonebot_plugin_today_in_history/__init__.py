@@ -51,14 +51,14 @@ async def get_history_info() -> str:
 async def send_mes_today_in_histoty():
     # global msg  # msg改成全局，方便在另一个函数中使用
     msg = await get_history_info()
-    for qq in plugin_config.history_qq_friends:
+    for qq in plugin_config.daily_qq_friends:
         await nonebot.get_bot().send_private_msg(user_id=qq, message=Message(msg))
 
-    for qq_group in plugin_config.history_qq_groups:
+    for qq_group in plugin_config.daily_qq_groups:
         await nonebot.get_bot().send_group_msg(group_id=qq_group, message=Message(msg))  # MessageEvent可以使用CQ发图片
 
 
 # 定时任务
-for index, time in enumerate(plugin_config.history_inform_time):
+for index, time in enumerate(plugin_config.daily_inform_time):
     nonebot.logger.info("id:{},time:{}".format(index, time))
     scheduler.add_job(send_mes_today_in_histoty, 'cron', hour=time.hour, minute=time.minute)
