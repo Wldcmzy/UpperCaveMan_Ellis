@@ -40,7 +40,7 @@ xx的概率是xxx
 
 ## 简单数学运算
 
-待重置
+gcd，lcm，快速幂，exgcd，逆元（exgcd / 费马小定理），素数判断
 
 ## 复读判官
 
@@ -98,9 +98,27 @@ xx的概率是xxx
 
 鸣谢：[noneplugin/nonebot-plugin-wordle: Nonebot2 wordle猜单词插件 (github.com)](https://github.com/Wldcmzy/UpperCaveMan_Ellis/tree/ellis_rework/uppercaveman_ellis/plugins/nonebot_plugin_wordle)
 
+## 塔罗牌
+
+destiny...
+
+鸣谢：[MinatoAquaCrews/nonebot_plugin_tarot: Tarot divination plugin for nonebot2 beta from nonebot_instatnt_plugins (github.com)](https://github.com/MinatoAquaCrews/nonebot_plugin_tarot)
+
+## 让机器人撤回消息
+
+如题
+
+鸣谢：[noneplugin/nonebot-plugin-withdraw: A simple withdraw plugin for Nonebot2 (github.com)](https://github.com/noneplugin/nonebot-plugin-withdraw)
+
+## 查看服务器状态[超管]
+
+查看cpu，内存，磁盘，开机时间
+
+鸣谢：[QQ-GitHub-Bot/src/plugins/nonebot_plugin_status at master · cscs181/QQ-GitHub-Bot · GitHub](https://github.com/cscs181/QQ-GitHub-Bot/tree/master/src/plugins/nonebot_plugin_status)
+
 # 额外说明
 
 **仅供学习使用**
 **不接受捐赠**
 
-# 感谢有人能耐下心来帮助我这个无可救药的垃圾
+# 感谢有人能耐下心来帮助我这个无可救药的废物
