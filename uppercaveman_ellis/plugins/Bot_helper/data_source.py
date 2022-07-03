@@ -59,6 +59,25 @@ ispirme x
 inv (待重置) (求逆元)
 '''.strip()
 
+HELP_tarot = '''塔罗牌
+占卜：[占卜]；
+得到单张塔罗牌回应：[塔罗牌]；
+[超管] 开启/关闭群聊转发模式：[开启|启用|关闭|禁用] 群聊转发模式，可降低风控风险。
+'''.strip()
+
+HELP_withdraw = ''',撤回(当机器人犯错，群友可以将其撤回)
+需要指定跟机器人说才行，示例：
+[@机器人 撤回] # 撤回倒数第一条消息
+[, 撤回 1]    # 撤回倒数第二条消息
+[山顶洞人 撤回 0-3] # 撤回倒数三条消息
+[Ellis 撤回 2-5]    # 撤回倒数第3-倒数第5条消息
+区间左闭右开，序号从0开始
+'''.strip()
+
+HELP_status = '''戳一戳
+查看服务器状态[超管]
+'''.strip()
+
 ALL_HELP_LIST = [
     HELP_help,
     HELP_wordle, 
@@ -71,6 +90,9 @@ ALL_HELP_LIST = [
     HELP_test_privilege,
     HELP_rand,
     HELP_math,
+    HELP_tarot,
+    HELP_withdraw,
+    HELP_status,
 ]
 
 async def Help_tip() -> list:
@@ -78,7 +100,7 @@ async def Help_tip() -> list:
     text = ''
     for each in ALL_HELP_LIST:
         text += f'=>{each}\n\n'
-        if len(text) > 512:
+        if len(text) > 768:
             return_list.append(text)
             text = ''
             

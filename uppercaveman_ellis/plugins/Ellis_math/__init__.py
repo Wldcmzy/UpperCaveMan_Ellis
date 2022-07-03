@@ -18,12 +18,14 @@ query_inv = on_command('inv', priority=MATH_Priority)
 query_isprime = on_command('isprime', priority=MATH_Priority)
 
 @query_PI.handle()
-async def _() -> None:
-    await query_PI.finish(f'π约等于{math.pi}')
+async def _(args : Message = CommandArg()) -> None:
+    if not args.extract_plain_text().strip():
+        await query_PI.finish(f'π约等于{math.pi}')
 
 @query_E.handle()
-async def _() -> None:
-    await query_PI.finish(f'e约等于{math.e}')
+async def _(args : Message = CommandArg()) -> None:
+    if not args.extract_plain_text().strip():
+        await query_PI.finish(f'e约等于{math.e}')
 
 @query_gcd.handle()
 async def _(args : Message = CommandArg()) -> None:
