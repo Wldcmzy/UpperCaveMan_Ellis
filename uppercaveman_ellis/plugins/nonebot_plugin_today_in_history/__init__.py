@@ -60,5 +60,4 @@ async def send_mes_today_in_histoty():
 
 # 定时任务
 for index, time in enumerate(plugin_config.daily_inform_time):
-    nonebot.logger.info("id:{},time:{}".format(index, time))
     scheduler.add_job(send_mes_today_in_histoty, 'cron', hour=time.hour, minute=time.minute)

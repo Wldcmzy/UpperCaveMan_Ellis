@@ -1,3 +1,7 @@
+HELP_help = '''help or 帮助
+[帮助] - 打开帮助菜单
+[petpet help] - 查看petpet表情包插件功能
+'''
 
 HELP_wordle = '''wordle
 可发送“结束”结束游戏；可发送“提示”查看提示
@@ -46,7 +50,17 @@ HELP_rand = '''rand 或者 随机
 返回一个随机数(好玩)
 '''.strip()
 
+HELP_math = '''少量数学运算
+带[]的为可选参数
+gcd a b
+lcm a b
+pow x p [mod] (快速幂)
+ispirme x
+inv (待重置) (求逆元)
+'''.strip()
+
 ALL_HELP_LIST = [
+    HELP_help,
     HELP_wordle, 
     HELP_today_in_history, 
     HELP_random_tkk, 
@@ -56,6 +70,7 @@ ALL_HELP_LIST = [
     HELP_weather,
     HELP_test_privilege,
     HELP_rand,
+    HELP_math,
 ]
 
 async def Help_tip() -> list:

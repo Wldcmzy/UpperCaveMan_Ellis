@@ -5,7 +5,7 @@ import time
 from nonebot.log import logger
 
 async def get_weather(pos : str) -> str:
-    '''中国地区名'''
+    '''pos : 中国地区名'''
     if len(pos) <= 0:
         return '我一介莽夫, 你让我猜你想查哪?'
     try:

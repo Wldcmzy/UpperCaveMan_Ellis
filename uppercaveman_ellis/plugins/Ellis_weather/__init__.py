@@ -4,8 +4,9 @@ from nonebot.adapters.onebot.v11 import Event
 from nonebot.plugin import PluginMetadata
 from nonebot_plugin_apscheduler import scheduler
 from nonebot.adapters.onebot.v11 import Message
-from .source_data import get_weather, find_city
+from .data_source import get_weather, find_city
 from .config import Config
+from nonebot.log import logger
 
 
 __plugin_meta__ = PluginMetadata(
@@ -31,16 +32,18 @@ async def _(event : Event) -> None:
 # 消息发送
 async def send_weather_info():
     # global msg  # msg改成全局，方便在另一个函数中使用
-    msg = await get_weather()
-    for qq in plugin_config.weather_qq_friends:
+    for each in plugin_config.weather_qq_friends:
+        qq, city = each.code, each.city
+        msg = await get_weather(city)
         await nonebot.get_bot().send_private_msg(user_id=qq, message=Message(msg))
 
-    for qq_group in plugin_config.weather_qq_groups:
+    for each in plugin_config.weather_qq_groups:
+        qq_group, city = each.code, each.city
+        msg = await get_weather(city)
         await nonebot.get_bot().send_group_msg(group_id=qq_group, message=Message(msg))  # MessageEvent可以使用CQ发图片
 
 
 # 定时任务
 for index, time in enumerate(plugin_config.weather_inform_time):
-    nonebot.logger.info("id:{},time:{}".format(index, time))
     scheduler.add_job(send_weather_info, 'cron', hour=time.hour, minute=time.minute)
 

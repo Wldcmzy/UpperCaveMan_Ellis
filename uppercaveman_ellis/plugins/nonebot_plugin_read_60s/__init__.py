@@ -48,5 +48,4 @@ async def suijitu():
         return pic_ti1
 
 for index, time in enumerate(plugin_config.daily_inform_time):
-    nonebot.logger.info("id:{},time:{}".format(index, time))
     scheduler.add_job(read60s, "cron", hour=time.hour, minute=time.minute, id=str(index))
