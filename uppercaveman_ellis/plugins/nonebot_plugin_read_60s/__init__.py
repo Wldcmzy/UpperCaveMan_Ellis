@@ -4,13 +4,13 @@ from nonebot import require
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 import json
 import nonebot
-from nonebot.adapters.onebot.v11 import Message
+from nonebot.adapters.onebot.v11 import Message, MessageSegment
+from pathlib import Path
 
+S60_PATH: Path = Path(__file__).parent / "resource"
 
 global_config = nonebot.get_driver().config
-nonebot.logger.info("global_config:{}".format(global_config))
 plugin_config = Config(**global_config.dict())
-nonebot.logger.info("plugin_config:{}".format(plugin_config))
 scheduler = require("nonebot_plugin_apscheduler").scheduler  # type:AsyncIOScheduler
 
 def remove_upprintable_chars(s):
@@ -35,7 +35,10 @@ async def suijitu():
         resp = remove_upprintable_chars(resp)
         retdata = json.loads(resp)
         lst = retdata['imageUrl']
-        pic_ti = f"今日60S读世界已送达\n[CQ:image,file={lst}]"
+        with open(S60_PATH / "read60s.png", 'wb') as f:
+            f.write(requests.get(lst).content)
+        img = MessageSegment.image(f'file://{S60_PATH / "read60s.png"}')
+        pic_ti = f"今日60S读世界已送达\n[CQ:image,file={img}]"
         return pic_ti
     except:
         url = "https://api.2xb.cn/zaob"#备用网址
@@ -44,8 +47,11 @@ async def suijitu():
         resp = remove_upprintable_chars(resp)
         retdata = json.loads(resp)
         lst = retdata['imageUrl']
-        pic_ti1 = f"今日60S读世界已送达\n[CQ:image,file={lst}]"
+        with open(S60_PATH / "read60s.png", 'wb') as f:
+            f.write(requests.get(lst).content)
+        img = MessageSegment.image(f'file://{S60_PATH / "read60s.png"}')
+        pic_ti1 = f"今日60S读世界已送达\n[CQ:image,file={img}]"
         return pic_ti1
 
 for index, time in enumerate(plugin_config.daily_inform_time):
-    scheduler.add_job(read60s, "cron", hour=time.hour, minute=time.minute, id=str(index))
+    scheduler.add_job(read60s, "cron", hour=time.hour, minute=time.minute)
