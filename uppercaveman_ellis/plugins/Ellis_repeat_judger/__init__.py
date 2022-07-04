@@ -25,8 +25,6 @@ async def _(event : Event) -> None:
     #获取基本信息
     useless, group_id, user_id = event.get_session_id().split('_')
     msg = await remove_image_num(str(event.get_message()))
-    logger.debug(f'<<<<<<<<<<<<<<<<<<<<<{event.get_message()}')
-    logger.debug(f'>>>>>>>>>>>>>>>>>>>{msg}')
 
     # 若消息集合中没有这个群的信息, 新建一个
     if group_id not in Group_Messsage: 
