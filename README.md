@@ -116,6 +116,10 @@ destiny...
 
 鸣谢：[QQ-GitHub-Bot/src/plugins/nonebot_plugin_status at master · cscs181/QQ-GitHub-Bot · GitHub](https://github.com/cscs181/QQ-GitHub-Bot/tree/master/src/plugins/nonebot_plugin_status)
 
+## bilibili链接解析
+
+鸣谢：[mengshouer/nonebot_plugin_analysis_bilibili: nonebot2解析bilibili插件 (github.com)](https://github.com/mengshouer/nonebot_plugin_analysis_bilibili)
+
 # 额外说明
 
 **仅供学习使用**

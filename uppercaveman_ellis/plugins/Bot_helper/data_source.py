@@ -50,8 +50,8 @@ HELP_rand = '''rand 或者 随机
 返回一个随机数(好玩)
 '''.strip()
 
-HELP_math = '''少量数学运算
-带[]的为可选参数
+HELP_math = '''
+少量数学运算,带[]的为可选参数
 gcd a b
 lcm a b
 pow x p [mod] (快速幂)
@@ -65,7 +65,7 @@ HELP_tarot = '''塔罗牌
 [超管] 开启/关闭群聊转发模式：[开启|启用|关闭|禁用] 群聊转发模式，可降低风控风险。
 '''.strip()
 
-HELP_withdraw = ''',撤回(当机器人犯错，群友可以将其撤回)
+HELP_withdraw = ''',撤回 (当机器人犯错，群友可以将其撤回)
 需要指定跟机器人说才行，示例：
 [@机器人 撤回] # 撤回倒数第一条消息
 [, 撤回 1]    # 撤回倒数第二条消息
@@ -77,6 +77,11 @@ HELP_withdraw = ''',撤回(当机器人犯错，群友可以将其撤回)
 HELP_status = '''戳一戳
 查看服务器状态[超管]
 '''.strip()
+
+HELP_bilibili_analyze = '''
+bilibili链接解析
+发送bilibili链接或分析, 自动解析其介绍
+'''
 
 ALL_HELP_LIST = [
     HELP_help,
@@ -93,6 +98,7 @@ ALL_HELP_LIST = [
     HELP_tarot,
     HELP_withdraw,
     HELP_status,
+    HELP_bilibili_analyze,
 ]
 
 async def Help_tip() -> list:
