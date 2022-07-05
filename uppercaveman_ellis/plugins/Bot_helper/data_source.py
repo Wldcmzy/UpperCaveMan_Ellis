@@ -1,12 +1,13 @@
-HELP_help = '''help or 帮助
-[帮助] - 打开帮助菜单
-[petpet help] - 查看petpet表情包插件功能
+HELP_help = '''帮助
+[帮助/help] - 帮助菜单
+[petpet help] - petpet表情包支持功能
 '''
 
 HELP_wordle = '''wordle
-可发送“结束”结束游戏；可发送“提示”查看提示
-可使用 -l / --length 指定单词长度，默认为 5
-可使用 -d / --dic 指定词典，默认为 CET4
+[结束]结束游戏
+[提示]查看提示
+-l / --length 单词长度，默认5
+-d / --dic 指定词典，默认CET4
 支持的词典：GRE、考研、GMAT、专四、TOEFL、SAT、专八、IELTS、CET4、CET6
 wordle [-l --length <length>] [-d --dic <dic>] [--hint] [--stop] [word]
 '''.strip()
@@ -16,8 +17,7 @@ HELP_today_in_history = '''历史上的今天
 
 HELP_random_tkk = '''随机唐可可
 开始游戏：[随机 + 唐可可/鲤鱼/鲤鱼王/Liyuu/liyuu]+[简单/普通/困难/地狱/自定义数量]
-输入答案：[答案是][行][空格][列]，行列为具体数字，例如：答案是114 514；
-答案正确则结束此次游戏；不正确则直至倒计时结束，Bot公布答案并结束游戏；
+输入答案：例如：答案是114 514；
 提前结束游戏：[找不到唐可可/唐可可人呢/呼叫鲤鱼姐]，仅游戏发起者可提前结束游戏；
 '''.strip()
 
@@ -46,12 +46,12 @@ HELP_weather = '''天气
 HELP_test_privilege = '''权限测试or测试权限
 '''.strip()
 
-HELP_rand = '''rand 或者 随机
-返回一个随机数(好玩)
+HELP_rand = '''随机
+[rand/随机]xx的概率是xxx(所以你选择C项)
 '''.strip()
 
-HELP_math = '''
-少量数学运算,带[]的为可选参数
+HELP_math = '''数学运算
+带[]的为可选参数
 gcd a b
 lcm a b
 pow x p [mod] (快速幂)
@@ -60,13 +60,12 @@ inv (待重置) (求逆元)
 '''.strip()
 
 HELP_tarot = '''塔罗牌
-占卜：[占卜]；
-得到单张塔罗牌回应：[塔罗牌]；
+占卜：[占卜]
+得到单张塔罗牌回应：[塔罗牌]
 [超管] 开启/关闭群聊转发模式：[开启|启用|关闭|禁用] 群聊转发模式，可降低风控风险。
 '''.strip()
 
-HELP_withdraw = ''',撤回 (当机器人犯错，群友可以将其撤回)
-需要指定跟机器人说才行，示例：
+HELP_withdraw = ''',撤回(需要指定跟机器人说才行)
 [@机器人 撤回] # 撤回倒数第一条消息
 [, 撤回 1]    # 撤回倒数第二条消息
 [山顶洞人 撤回 0-3] # 撤回倒数三条消息
@@ -81,6 +80,11 @@ HELP_status = '''戳一戳
 HELP_bilibili_analyze = '''
 bilibili链接解析
 发送bilibili链接或分析, 自动解析其介绍
+'''
+
+HELP_read60s = '''一些自动发送
+60读世界
+其他
 '''
 
 ALL_HELP_LIST = [
@@ -99,6 +103,7 @@ ALL_HELP_LIST = [
     HELP_withdraw,
     HELP_status,
     HELP_bilibili_analyze,
+    HELP_read60s,
 ]
 
 async def Help_tip() -> list:
@@ -106,7 +111,7 @@ async def Help_tip() -> list:
     text = ''
     for each in ALL_HELP_LIST:
         text += f'=>{each}\n\n'
-        if len(text) > 768:
+        if len(text) > 376:
             return_list.append(text)
             text = ''
             

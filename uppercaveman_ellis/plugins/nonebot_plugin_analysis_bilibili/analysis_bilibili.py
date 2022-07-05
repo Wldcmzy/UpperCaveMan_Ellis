@@ -138,8 +138,8 @@ async def video_detail(url, **kwargs):
             res = (await resp.json()).get("data")
             if not res:
                 return "解析到视频被删了/稿件不可见或审核中/权限不足", url
-        vurl = f"https://www.bilibili.com/video/av{res['aid']}"
-        title = f"\n标题：{res['title']}\n"
+        vurl = f"https://www.bilibili.com/video/av{res['aid']}\n"
+        title = f"标题：{res['title']}\n"
         page = kwargs.get("page")
         if page:
             page = page[0].replace("&amp;", "&")
@@ -168,8 +168,13 @@ async def video_detail(url, **kwargs):
         desc_list = desc.split("\n")
         if len(desc_list) > 4:
             desc = desc_list[0] + "\n" + desc_list[1] + "\n" + desc_list[2] + "……"
+#######################
+# 减少链接的出现,需要链接注释vurl=''等内容即可
+        vurl_cpy = vurl
+        vurl = ''
+#######################
         msg = str(vurl) + str(title) + str(tname) + str(stat) + str(desc)
-        return msg, vurl
+        return msg, vurl_cpy
     except Exception as e:
         msg = "视频解析出错--Error: {}".format(type(e))
         return msg, None
@@ -205,6 +210,11 @@ async def bangumi_detail(url, time):
         if time:
             time = time[0].replace("&amp;", "&")[3:]
             vurl += f"?t={time}"
+#######################
+# 减少链接的出现,需要链接注释vurl=''等内容即可
+        vurl_cpy = vurl
+        vurl = ''
+#######################
         msg = (
             str(vurl)
             + "\n"
@@ -214,7 +224,7 @@ async def bangumi_detail(url, time):
             + str(style)
             + str(evaluate)
         )
-        return msg, vurl
+        return msg, vurl_cpy
     except Exception as e:
         msg = "番剧解析出错--Error: {}".format(type(e))
         msg += f"\n{url}"
@@ -259,8 +269,14 @@ async def live_detail(url):
             player = f"独立播放器：https://www.bilibili.com/blackboard/live/live-activity-player.html?enterTheRoom=0&cid={room_id}"
         else:
             player = ""
+#######################
+# 减少链接的出现,需要链接注释vurl=''等内容即可
+        vurl_cpy = vurl
+        vurl = ''
+        player = ''
+#######################
         msg = str(vurl) + str(title) + str(up) + str(watch) + str(tags) + str(player)
-        return msg, vurl
+        return msg, vurl_cpy
     except Exception as e:
         msg = "直播间解析出错--Error: {}".format(type(e))
         return msg, None
@@ -284,8 +300,14 @@ async def article_detail(url, cvid):
         like = f"点赞数：{handle_num(res['stats']['like'])} "
         dislike = f"不喜欢数：{handle_num(res['stats']['dislike'])}"
         desc = view + favorite + coin + "\n" + share + like + dislike
+#######################
+# 减少链接的出现,需要链接注释vurl=''等内容即可
+        vurl_cpy = vurl
+        vurl = ''
+        up = f"作者：{res['author_name']}"
+#######################
         msg = str(vurl) + str(title) + str(up) + str(desc)
-        return msg, vurl
+        return msg, vurl_cpy
     except Exception as e:
         msg = "专栏解析出错--Error: {}".format(type(e))
         return msg, None
@@ -322,8 +344,13 @@ async def dynamic_detail(url):
                 content += f"\n动态包含转发视频{short_link}"
             else:
                 content += f"\n动态包含转发其他动态"
+#######################
+# 减少链接的出现,需要链接注释vurl=''等内容即可
+        vurl_cpy = vurl
+        vurl = ''
+#######################
         msg = str(vurl) + str(content)
-        return msg, vurl
+        return msg, vurl_cpy
     except Exception as e:
         msg = "动态解析出错--Error: {}".format(type(e))
         return msg, None

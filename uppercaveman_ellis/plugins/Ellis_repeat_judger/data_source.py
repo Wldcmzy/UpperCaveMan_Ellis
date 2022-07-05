@@ -2,6 +2,7 @@ from nonebot.adapters.onebot.v11 import Message
 from random import randint
 import re
 import time
+import hashlib
 
 
 async def remove_image_num(msg):
@@ -27,7 +28,7 @@ async def repeat_interrupt(user_id:str, user_level: int = 0) -> Message:
     '''
     base_str = f'有复读人! 打断,并打断 [CQ:at,qq={user_id}] '
     tail_str = '的腿杀鸡儆猴!'
-    rand_code = '\nCode:' + str(randint(-0x7fff, 0x7fff)) + str(time.time())
+    rand_code = '\nCode:' + hashlib.md5(str(time.time()).encode('utf-8')).hexdigest()[ : 6]
     if user_level == -1: tail_str = '......\n 哦那没事了, 您想干嘛就干嘛 [CQ:face,id=107] '
     elif user_level == 1: tail_str = '......\n 哦是群主啊, 那没事了...'
     elif user_level == 2: tail_str = '......\n 哦是管理员啊, 那没事了...'

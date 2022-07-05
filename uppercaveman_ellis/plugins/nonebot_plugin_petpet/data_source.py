@@ -27,7 +27,7 @@ commands = [
     Command(police, ("出警",)),
     Command(police1, ("警察",)),
     Command(ask, ("问问",), r"去?问问"),
-    Command(prpr, ("舔", "舔屏", "prpr"), r"舔屏?|prpr"),
+    # Command(prpr, ("舔", "舔屏", "prpr"), r"舔屏?|prpr"),
     Command(twist, ("搓",)),
     Command(wallpaper, ("墙纸",)),
     Command(china_flag, ("国旗",)),
