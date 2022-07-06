@@ -80,12 +80,19 @@ HELP_status = '''戳一戳
 HELP_bilibili_analyze = '''
 bilibili链接解析
 发送bilibili链接或分析, 自动解析其介绍
-'''
+'''.strip()
 
 HELP_read60s = '''一些自动发送
 60读世界
 其他
-'''
+'''.strip()
+
+HELP_clearmind = '''扫雷
+扫雷 -c/--cfg N M 重启游戏设置场地为NxN, 雷数M
+扫雷 x y 扫(x, y)位置
+扫雷 -s/--show 查看雷区
+扫雷 --stop 结束扫雷
+'''.strip()
 
 ALL_HELP_LIST = [
     HELP_help,
@@ -104,6 +111,7 @@ ALL_HELP_LIST = [
     HELP_status,
     HELP_bilibili_analyze,
     HELP_read60s,
+    HELP_clearmind,
 ]
 
 async def Help_tip() -> list:
@@ -111,7 +119,7 @@ async def Help_tip() -> list:
     text = ''
     for each in ALL_HELP_LIST:
         text += f'=>{each}\n\n'
-        if len(text) > 376:
+        if len(text) > 512:
             return_list.append(text)
             text = ''
             

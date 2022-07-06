@@ -1,11 +1,23 @@
+from ctypes import Union
 import numpy as np
 import random
 import cv2
-from nonebot.log import logger
+from pathlib import Path
+from nonebot.adapters.onebot.v11 import MessageSegment, Message
+
+ClearMine_img_path: Path = Path(__file__).parent / "resource/image"
+ClearMine_out_path: Path = Path(__file__).parent / "resource/out"
 
 class ClearMine:
     dir = ((0, 1), (0, -1), (1, 0), (-1, 0), (1, 1), (1, -1), (-1, 1), (-1, -1))
-    def __init__(self, sz : int = 6, num : int = 8, path : str = ClearMine_pic_path['src'], outpath  : str = ClearMine_pic_path['out']) -> None:
+    def __init__(
+        self, 
+        groupID : str,
+        sz : int = 6, 
+        num : int = 8, 
+        path : Path = ClearMine_img_path, 
+        outpath  : Path = ClearMine_out_path
+        ) -> None:
         '''
         初始化
         sz : 雷区大小(sz x sz) 
@@ -18,6 +30,7 @@ class ClearMine:
         self.__BOOM = 0x7ffffffe
         self.__path = path
         self.__outpath = outpath
+        self.__outpicname = 'clearmindpic' + groupID + '.jpg'
 
     
     def cfg(self, sz : int, num : int) -> None:
@@ -96,18 +109,18 @@ class ClearMine:
         self.updateMask(x, y)
         return True
 
-    def outputBoard(self, hasMask : bool = True) -> str:
+    def drawBoard(self, hasMask : bool = True) -> None:
         '''
-        保存雷区图像,返回图片CQ码
+        保存雷区图像到输出目录
         hasMask : 输出时是否考虑遮罩
         '''
-        img = [cv2.imread(self.__path + 'C' + str(i) + '.png', 1) for i in range(9)]
-        mine = cv2.imread(self.__path + 'CMine.png', 1)
-        boom = cv2.imread(self.__path + 'CBoom.png', 1)
-        img.append(cv2.imread(self.__path + 'CMask.png', 1))
+        img = [cv2.imread(str(self.__path / f'C{str(i)}.png'), 1) for i in range(9)]
+        mine = cv2.imread(str(self.__path / 'CMine.png'), 1)
+        boom = cv2.imread(str(self.__path / 'CBoom.png'), 1)
+        img.append(cv2.imread(str(self.__path / 'CMask.png'), 1))
         row = []
         for i in range(1, self.__sz + 1):
-            col = ''
+            col = None
             for j in range(1, self.__sz + 1):
                 if hasMask == True and self.__mask[i][j] == 0:
                     col = img[-1] if j == 1 else np.column_stack((col, img[-1]))
@@ -130,51 +143,50 @@ class ClearMine:
 
         ret = np.row_stack(row)
 
-        cv2.imwrite(self.__outpath + 'ClearMineReturnPic.jpg', ret, [int(cv2.IMWRITE_JPEG_QUALITY),50])
-        return '[CQ:image,file=ClearMineReturnPic.jpg]'
+        cv2.imwrite(str(self.__outpath / self.__outpicname), ret, [int(cv2.IMWRITE_JPEG_QUALITY),75])
 
-    def foolishAI(self, x : int, y : int) -> str:
+    def foolishAI(self, x : int, y : int) -> Message:
         '''对用户输入以及扫雷结果做简单判断, 返回雷区图像以及文字提示'''
         ret = ''
-        if self.judgeEdge(x, y) == False: return '扫出雷区了'
-        if self.__mask[x][y] != 0: return f'({x},{y})位置的状况已经知道了, 不需要再扫了'
+        if self.judgeEdge(x, y) == False: return Message('扫出雷区了')
+        if self.__mask[x][y] != 0: return Message(f'({x},{y})位置的状况已经知道了, 不需要再扫了')
         if self.selectCell(x, y) == False:
             ret += '雷炸了, 你怎么回事?\n' if random.randint(1, 100) <= 50 else '雷炸了, 你个垃圾!\n'
             ret += '游戏自动重启~\n'
-            ret += self.outputBoard(False)
+            self.drawBoard(False)
             self.initialBoard()
         else:
             if self.__count >= (self.__sz ** 2) - self.__num:
-                ret = self.outputBoard(hasMask = False)
+                self.drawBoard(False)
                 ret += '\n恭喜你完成扫雷, 游戏会自动重开~'
                 self.initialBoard()
             else:
                 ret = f'({x},{y})位置扫描完成\n'
-                ret += self.outputBoard()
+                self.drawBoard()
+
+        img = MessageSegment.image(f'file://{self.__outpath / self.__outpicname}')
+        return Message(ret).append(img)
         
-        return ret
-    
-    def parseOP(self, op : str) -> str:
+    def parseOP(self, args: list[str], mode : str = 'click') -> Message:
         '''解析用户输入的参数, 执行响应命令'''
         ret = ''
         try:
-            if op[ : 3] == 'cfg':
-                data = op.split()
-                sz, num = int(data[1]), int(data[2])
+            if mode == 'cfg':
+                sz, num = int(args[0]), int(args[1])
                 if sz <=0 or num <= 0:
-                    return '李载赣砷魔?'
+                    return Message('李载赣砷魔?')
                 if sz > 15:
-                    return '场地太大了, 你的眼睛受得了吗?\n(打死不加行列标识)'
+                    return Message('场地太大了, 你的眼睛受得了吗?\n(打死不加行列标)')
                 if num >= sz * sz:
-                    return '智商和你, 总有一个有问题...'
+                    return Message('智商和你, 总有一个有问题...')
                 self.cfg(sz, num)
-                ret = '已经将扫雷参数设置为: 场地大小%dx%d, %d个雷\n游戏自动重启~' % (sz, sz, num)
-            elif op[ : 2] == '查看':
-                ret = self.outputBoard()
-            else:
-                data = op.split()
-                x, y = int(data[0]), int(data[1])
+                ret = Message('已经将扫雷参数设置为: 场地大小%dx%d, %d个雷\n游戏自动重启~' % (sz, sz, num))
+            elif mode == 'show':
+                self.drawBoard()
+                ret = Message().append(MessageSegment.image(f'file://{self.__outpath / self.__outpicname}'))
+            elif mode == 'click':
+                x, y = int(args[0]), int(args[1])
                 ret = self.foolishAI(x, y)
         except Exception as e:
-            ret = '出错蜡! ' + str(e)
+            ret = f'出错蜡! {type(e)}|{str(e)}'
         return ret

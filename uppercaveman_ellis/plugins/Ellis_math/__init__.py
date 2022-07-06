@@ -1,3 +1,4 @@
+from argparse import Namespace
 from nonebot.rule import ArgumentParser
 from nonebot.exception import FinishedException
 from .data_source import gcd, isprime, lcm, power, inverse_exgcd, inverse_Fermat, Default_Mod
@@ -59,10 +60,9 @@ async def _(args : Message = CommandArg()) -> None:
     await query_gcd.finish(extra_head_int + str(await isprime(*args)))
 
 @query_inv.handle()
-async def _(args = ShellCommandArgs()) -> None:
+async def _(args: Namespace = ShellCommandArgs()) -> None:
     try:
         args = vars(args)
-        logger.debug(f'>>>>>>>>>>>>{args}')
     except Exception as e:
         await query_inv.finish(f'输入格式有误{type(e)}:{str(e)}')
     
