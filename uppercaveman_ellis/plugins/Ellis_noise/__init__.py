@@ -25,7 +25,7 @@ async def autosend_noise() -> None:
         20 : '8点乐, 吃水果~',
     }
     try:
-        for qqID in plugin_config.noise_qq_groups:
+        for qqID in plugin_config.noise_qq_friends:
             await bot.send_private_msg(user_id=qqID,message=Message(switch_dic[now.hour]))
         for groupID in plugin_config.noise_qq_groups:
             await bot.send_group_msg(group_id=groupID,message=Message(switch_dic[now.hour]))

@@ -52,11 +52,11 @@ HELP_rand = '''随机
 
 HELP_math = '''数学运算
 带[]的为可选参数
-gcd a b
-lcm a b
-pow x p [mod] (快速幂)
-ispirme x
-inv (待重置) (求逆元)
+gcd a b 最大公约数
+lcm a b 最小公倍数
+pow x p [mod(默认998244353)] (快速幂) 乘方
+ispirme x  判断素数
+inv x p [-m/--mode exgcd(默认)/fm] 求逆元
 '''.strip()
 
 HELP_tarot = '''塔罗牌
