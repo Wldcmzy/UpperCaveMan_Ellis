@@ -94,6 +94,13 @@ HELP_clearmind = '''扫雷
 扫雷 --stop 结束扫雷
 '''.strip()
 
+HELP_memo = '''备忘录
+写入和删除操作需要在开头@山顶洞人或者写昵称[,/，/Ellis/山顶洞人]
+[查看/备忘录] 查看群备忘录内容
+[写入/记录 xxx] 把xxx文本加入群备忘录
+[删除 序号] 删除对应序号的内容 
+'''
+
 ALL_HELP_LIST = [
     HELP_help,
     HELP_wordle, 
@@ -112,6 +119,7 @@ ALL_HELP_LIST = [
     HELP_bilibili_analyze,
     HELP_read60s,
     HELP_clearmind,
+    HELP_memo
 ]
 
 async def Help_tip() -> list:
@@ -119,7 +127,7 @@ async def Help_tip() -> list:
     text = ''
     for each in ALL_HELP_LIST:
         text += f'=>{each}\n\n'
-        if len(text) > 512:
+        if len(text) > 448:
             return_list.append(text)
             text = ''
             
