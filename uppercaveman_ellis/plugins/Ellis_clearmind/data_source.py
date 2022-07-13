@@ -1,3 +1,9 @@
+##############################################
+# 一开始没用nb2而是手撸socket
+# 这个扫雷是根据当时手撸socket版本改的
+# 有些地方代码规则不是很到位
+##############################################
+
 from ctypes import Union
 import numpy as np
 import random
@@ -13,8 +19,8 @@ class ClearMine:
     def __init__(
         self, 
         groupID : str,
-        sz : int = 6, 
-        num : int = 8, 
+        sz : int = 8, 
+        num : int = 6, 
         path : Path = ClearMine_img_path, 
         outpath  : Path = ClearMine_out_path
         ) -> None:
