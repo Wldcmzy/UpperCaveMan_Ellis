@@ -6,6 +6,21 @@ from .data_source import memo_add,memo_del,memo_see
 import nonebot
 from .config import Config
 from nonebot_plugin_apscheduler import scheduler
+from nonebot.adapters.onebot.v11 import GROUP_ADMIN, GROUP_OWNER
+from nonebot.permission import SUPERUSER
+from nonebot.log import logger
+
+
+async def __user_privilege(event: Event) -> int:
+    bot = nonebot.get_bot()
+    if await SUPERUSER(bot, event):
+        logger.debug('\n\n\n SUPERUSER \n\n\n')
+        return 0
+    elif await GROUP_ADMIN(bot, event) or await GROUP_OWNER(bot, event):
+        logger.debug('\n\n\n 111111111 \n\n\n')
+        return 1
+    else:
+        return 2
 
 global_config = nonebot.get_driver().config
 plugin_config = Config(**global_config.dict())
@@ -18,14 +33,14 @@ memorandum_see = on_command('查看', permission=GROUP,aliases={'备忘录'},pri
 async def _(event : Event, args : Message = CommandArg()) -> None:
     useless, group_id, user_id = event.get_session_id().split('_')
     plain_text = args.extract_plain_text()
-    reply_text = memo_add(group_id, user_id, plain_text)
+    reply_text = memo_add(group_id, user_id, plain_text, await __user_privilege(event))
     await memorandum_add.finish(reply_text)
 
 @memorandum_del.handle()
 async def memorandum_delete(event : Event, args : Message = CommandArg()) -> None:
     useless, group_id, user_id = event.get_session_id().split('_')
     plain_index = args.extract_plain_text()
-    reply_text = memo_del(group_id, plain_index)
+    reply_text = memo_del(group_id, plain_index, user_id, await __user_privilege(event))
     await memorandum_del.finish(reply_text)
 
 @memorandum_see.handle()

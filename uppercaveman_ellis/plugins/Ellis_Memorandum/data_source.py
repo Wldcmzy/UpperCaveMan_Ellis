@@ -3,6 +3,7 @@ from sqlite3 import Connection
 from pathlib import Path
 import datetime
 from typing import Union
+from nonebot.log import logger
 
 DB_PATH: Path = Path(__file__).parent / "resource"
 
@@ -33,8 +34,11 @@ def open_table(path: Path) -> Connection:
     return conn
 
 @try_except_ensure
-def memo_add(group_id: str, user_id: str, data: str) -> str:
+def memo_add(group_id: str, user_id: str, data: str, privilege: int) -> str:
     '''把数据存进数据库, 返回提示信息'''
+
+    if privilege >= 2:
+        return '无权限'
     
     conn = open_table(DB_PATH / (group_id + '.db'))
     cursor = conn.cursor()
@@ -74,18 +78,33 @@ def memo_see(group_id: str) -> list[str]:
     return lst
 
 @try_except_ensure
-def memo_del(group_id: str, index: str) -> str:
+def memo_del(group_id: str, index: str, user_id: str, privilege: int) -> str:
+
+    if privilege >= 2:
+        return '无权限'
+
     conn = open_table(DB_PATH / (group_id + '.db'))
     cursor = conn.cursor()
 
     cursor.execute(f'''
-        SELECT ID 
+        SELECT ID, USER 
         FROM MEMO 
         WHERE ID = "{int(index)}";
     ''')
-    if cursor.fetchall() == []:
+
+    res = cursor.fetchall()
+
+    if res == []:
         conn.close()
         return '序号错误~'
+
+    id, userid= res[0]
+
+    logger.debug(f'>>>>>>>>>>>>>{privilege}')
+    if privilege != 0:
+        if user_id != userid:
+            conn.close()
+            return '????'
 
     cursor.execute(f'''
         DELETE 
