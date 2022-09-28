@@ -4,8 +4,7 @@ from nonebot.params import CommandArg, Arg, ArgStr
 from nonebot.typing import T_State
 from nonebot.adapters.onebot.v11 import Event, Message
 from nonebot.log import logger
-from .privilege import Role_CV
-from ..global_args import PRIORITY_NORMAL
+from .config import PRIORITY_NORMAL
 from .source_data import ( 
     E_binary,
     E_blur,
@@ -22,7 +21,6 @@ from .source_data import (
 
 E_cv_flip = on_command(
     'flip', 
-    rule=Role_CV, 
     priority=PRIORITY_NORMAL,
 )
 @E_cv_flip.handle()
@@ -62,7 +60,6 @@ async def cv_flip(state : T_State, url = Arg('url'), op : str = Arg('operation')
 # 生成灰度图
 E_cv_gray = on_command(
     'gray', 
-    rule=Role_CV,
     priority=PRIORITY_NORMAL,
 )
 @E_cv_gray.handle()
@@ -91,7 +88,6 @@ async def cv_gray(state : T_State, url = Arg('url')):
 # 图片二值化
 E_cv_binary = on_command(
     'binary', 
-    rule=Role_CV,
     priority=PRIORITY_NORMAL,
 )
 @E_cv_binary.handle()
@@ -125,7 +121,6 @@ async def cv_binary(state : T_State, url = Arg('url'), method_text : str = Arg('
 # 图片滤波
 E_cv_blur = on_command(
     'blur', 
-    rule=Role_CV,
     priority=PRIORITY_NORMAL,
 )
 @E_cv_blur.handle()
@@ -158,7 +153,6 @@ async def cv_blur(state : T_State, url = Arg('url'), method_text : str = Arg('me
 # canny边缘检测
 E_cv_canny = on_command(
     'canny', 
-    rule=Role_CV,
     priority=PRIORITY_NORMAL,
 )
 @E_cv_canny.handle()

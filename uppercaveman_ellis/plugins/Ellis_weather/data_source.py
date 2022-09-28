@@ -5,11 +5,22 @@ import time
 from nonebot.log import logger
 
 async def get_weather(pos : str) -> str:
+    header = {
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+        "Accept-Encoding": "gzip, deflate",
+        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6",
+        "Cache-Control": "max-age=0",
+        "Host": "wthrcdn.etouch.cn",
+        "Proxy-Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36 Edg/105.0.1343.50",
+    }
+
     '''pos : 中国地区名'''
     if len(pos) <= 0:
         return '我一介莽夫, 你让我猜你想查哪?'
     try:
-        res = requests.get('http://wthrcdn.etouch.cn/weather_mini?city=%s' % pos)
+        res = requests.get('http://wthrcdn.etouch.cn/weather_mini?city=%s' % pos, headers=header)
         res = json.loads(res.text)
         a = res['data']['forecast'][0]
         tm = time.localtime()[ : 6]

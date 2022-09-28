@@ -5,8 +5,11 @@ import cv2
 import numpy as np
 from numpy import ndarray
 from nonebot.log import logger
-from ..global_args import CV_pic_path, CV_pic_arg
-from ..E_tools import form_time_string
+from typing import Union
+from pathlib import Path 
+from .config import CV_pic_path, CV_pic_arg
+from .config import form_time_string
+
 
 CV_n_Iter = 0
 def form_pic_name() -> str:
@@ -29,7 +32,7 @@ async def resize_by_long_edge(img : ndarray) -> ndarray:
     img = cv2.resize(img, (new_W, new_H))
     return img
 
-async def get_1st_pic_url(msg : str) -> str or None:
+async def get_1st_pic_url(msg : str) -> Union[str, None]:
     '''匹配信息中的第一张图片, 返回连接'''
     pattern = re.compile('\[CQ:image,file=(\w|\d)*\.image,url=https://gchat.qpic.cn/(\w|\d|\/|-|_|\?|=|,)*\]')
     url = pattern.search(msg)
@@ -56,7 +59,7 @@ async def E_flip(file_name : str, axis : int = -1) -> str:
     img = await resize_by_long_edge(img)
     img = cv2.flip(img, axis)
     cv2.imwrite(CV_pic_path['out'] + file_name, img, [int(cv2.IMWRITE_JPEG_QUALITY), CV_pic_arg['jpg_qulity']])
-    return f'[CQ:image,file={CV_pic_path["extra"]}{file_name}]'
+    return f'[CQ:image,file="{CV_pic_path["extra"]}{file_name}]"'
 
 async def E_fliphalf(file_name : str, method = 'u') -> str:
     if not os.path.exists(CV_pic_path['out']):
@@ -80,7 +83,7 @@ async def E_fliphalf(file_name : str, method = 'u') -> str:
         half = img[ : , : W // 2 ]
         img = np.hstack((half, cv2.flip(half, 1)))
     cv2.imwrite(CV_pic_path['out'] + file_name, img, [int(cv2.IMWRITE_JPEG_QUALITY), CV_pic_arg['jpg_qulity']])
-    return f'[CQ:image,file={CV_pic_path["extra"]}{file_name}]'
+    return f'[CQ:image,file="{CV_pic_path["extra"]}{file_name}]"'
 
 async def E_gray(file_name : str) -> str:
     if not os.path.exists(CV_pic_path['out']):
@@ -89,7 +92,7 @@ async def E_gray(file_name : str) -> str:
     if gray is None: return '暂时改不了动图~'
     gray = await resize_by_long_edge(gray)
     cv2.imwrite(CV_pic_path['out'] + file_name, gray, [int(cv2.IMWRITE_JPEG_QUALITY), CV_pic_arg['jpg_qulity']])
-    return f'[CQ:image,file={CV_pic_path["extra"]}{file_name}]'
+    return f'[CQ:image,file="{CV_pic_path["extra"]}{file_name}]"'
 
 async def E_binary(file_name : str, method : int = 1) -> str:
     if method > 5: method = 1
@@ -119,7 +122,7 @@ async def E_binary(file_name : str, method : int = 1) -> str:
         ret, threshed = cv2.threshold(gray,thresh,maxval,cv2.THRESH_TRUNC) 
 
     cv2.imwrite(CV_pic_path['out'] + file_name, threshed, [int(cv2.IMWRITE_JPEG_QUALITY), CV_pic_arg['jpg_qulity']])
-    return f'[CQ:image,file={CV_pic_path["extra"]}{file_name}]'
+    return f'[CQ:image,file="{CV_pic_path["extra"]}{file_name}]"'
 
 
 async def E_blur(file_name : str, method : int = 1) -> str:
@@ -143,7 +146,7 @@ async def E_blur(file_name : str, method : int = 1) -> str:
         img = cv2.medianBlur(img, 9)
 
     cv2.imwrite(CV_pic_path['out'] + file_name, img, [int(cv2.IMWRITE_JPEG_QUALITY), CV_pic_arg['jpg_qulity']])
-    return f'[CQ:image,file={CV_pic_path["extra"]}{file_name}]'
+    return f'[CQ:image,file="{CV_pic_path["extra"]}{file_name}]"'
 
 
 async def E_canny(file_name : str) -> str:
@@ -154,4 +157,4 @@ async def E_canny(file_name : str) -> str:
     img = await resize_by_long_edge(img)
     img = cv2.Canny(img, 80, 130)
     cv2.imwrite(CV_pic_path['out'] + file_name, img, [int(cv2.IMWRITE_JPEG_QUALITY), CV_pic_arg['jpg_qulity']])
-    return f'[CQ:image,file={CV_pic_path["extra"]}{file_name}]'
+    return f'[CQ:image,file="{CV_pic_path["extra"]}{file_name}]"'
