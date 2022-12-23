@@ -20,7 +20,6 @@ async def autosend_noise() -> None:
     now = datetime.now(pytz.timezone('Asia/Shanghai'))
     switch_dic = {
         1 : lambda : f'1点乐, 别玩手机乐~',
-        8 : kaoyan23,
         18 : lambda : f'8点乐, 我要早八!',
         20 : lambda : f'8点乐, 吃水果~',
     }

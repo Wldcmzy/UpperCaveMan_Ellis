@@ -1,6 +1,5 @@
 from pydantic import BaseSettings, Extra, Field
 
-
 class QWeather(BaseSettings):
     code: int = Field(0,alias="CODE")
     city: str = Field(0,alias="CITY")

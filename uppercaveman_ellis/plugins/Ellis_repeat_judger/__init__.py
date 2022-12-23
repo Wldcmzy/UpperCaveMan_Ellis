@@ -43,7 +43,7 @@ async def _(event : Event) -> None:
 
     Group_Messsage[group_id]['times'] += 1
 
-    # 若此群在interrupt集合中并被判定为复读, 发送interrupt内容打断复读 
+    # 若此群在interrupt组中并被判定为复读, 发送interrupt内容打断复读 
     if group_id in Interrupt_group:
         random_threshold = Repeat_threshold + randint(0, Repeat_threshold_random_add)
         if Group_Messsage[group_id]['times'] >= random_threshold:
