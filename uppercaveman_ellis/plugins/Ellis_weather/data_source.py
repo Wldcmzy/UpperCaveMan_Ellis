@@ -78,12 +78,19 @@ async def get_weather(pos : str) -> str:
 风向:{today['fx']} 风力:{today['fl']}
 日出:{today['sunrise']} 日落:{today['sunset']}
 
+{notice}
+
 实时数据:
 空气质量:{data['quality']}
 温度:{data['wendu']}℃ 湿度:{data['shidu']}
 pm2.5: {data['pm25']}  pm10: {data['pm10']}
 
-{notice}
+次日数据:
+日期:{tomorrow['ymd']} {tomorrow['week']}
+天气:{tomorrow['type']}
+高温:{tomorrow['high'][2 : ]} 低温:{tomorrow['low'][2 : ]}
+风向:{tomorrow['fx']} 风力:{tomorrow['fl']}
+日出:{tomorrow['sunrise']} 日落:{tomorrow['sunset']}
     '''.strip()
 
     return ret
