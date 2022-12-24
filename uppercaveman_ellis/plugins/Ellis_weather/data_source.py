@@ -5,6 +5,7 @@ import time
 from nonebot.log import logger
 from pathlib import Path
 import pickle
+import random
 
 stations_file: Path = Path(__file__).parent / "resource" / "stations.silksINFn"
 with open(stations_file, 'rb') as f:
@@ -58,23 +59,31 @@ async def get_weather(pos : str) -> str:
     if len(pos) <= 0: return '我一介莽夫, 你让我猜你想查哪?'
     if pos not in DIC: return '我不造啊!'
     code = DIC[pos]
-    res = requests.get(f'http://www.weather.com.cn/data/sk/{code}.html')
-    data = json.loads(res.content.decode('utf-8'))['weatherinfo']
-    res = requests.get(f'http://www.weather.com.cn/data/cityinfo/{code}.html')
-    data2 = json.loads(res.content.decode('utf-8'))['weatherinfo']
+    data: dict = json.loads(requests.get(f'http://t.weather.sojson.com/api/weather/city/{code}').text)
+    city = data['cityInfo']['city']
+    data = data['data']
+    forecast = data['forecast']
+    today, tomorrow = forecast[0], forecast[1]
+
+    notice = today['notice'] + '~'
+    if today['week'] == '星期四':
+        if random.randint(0, 1000) < 100:
+            notice = 'Crazy**4Vme50, 懂?'
+
     ret = f'''
-城市:{data2["city"]}
-天气:{data2["weather"]}
-温度:{data2["temp1"]} ~ {data2["temp2"]}
-以下为实时数据:
-采集时间:{data["time"]}
-温度:{data["temp"]}
-相对湿度:{data["SD"]}
-风向:{data["WD"]}
-风力:{data["WS"]}
-气压:{data["AP"]}
-Radar:{data["Radar"]}
-isRadar:{data["isRadar"]}
+城市:{city}
+日期:{today['ymd']} {today['week']}
+天气:{today['type']}
+高温:{today['high'][2 : ]} 低温:{today['low'][2 : ]}
+风向:{today['fx']} 风力:{today['fl']}
+日出:{today['sunrise']} 日落:{today['sunset']}
+
+实时数据:
+空气质量:{data['quality']}
+温度:{data['wendu']}℃ 湿度:{data['shidu']}
+pm2.5: {data['pm25']}  pm10: {data['pm10']}
+
+{notice}
     '''.strip()
 
     return ret
