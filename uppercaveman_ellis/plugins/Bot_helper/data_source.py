@@ -99,7 +99,13 @@ HELP_memo = '''备忘录
 [查看/备忘录] 查看群备忘录内容
 [写入/记录 xxx] 把xxx文本加入群备忘录
 [删除 序号] 删除对应序号的内容 
-'''
+'''.strip()
+
+HELP_EzCV = '''简单图像处理
+cv 模式 参数 图像(图像可单独发送)
+若不清楚模式和参数, 输入其之前的内容会出现提示
+eg: cv blur 4 图片
+'''.strip()
 
 ALL_HELP_LIST = [
     HELP_help,
@@ -119,7 +125,8 @@ ALL_HELP_LIST = [
     HELP_bilibili_analyze,
     HELP_read60s,
     HELP_clearmind,
-    HELP_memo
+    HELP_memo,
+    HELP_EzCV,
 ]
 
 async def Help_tip() -> list:
