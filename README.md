@@ -135,6 +135,59 @@ destiny...
 
 插件链接： [CherryCherries/nonebot-plugin-abstract: 适用于 Nonebot2 的语句抽象化插件 (github.com)](https://github.com/CherryCherries/nonebot-plugin-abstract)
 
+
+
+# 关于.dev文件
+
+由于牵扯一些隐私信息就不放了, 文件格式大概像这样(不定期更新)
+
+```
+ENVIRONMENT=dev
+
+SUPERUSERS=["777777777"]  # 配置 NoneBot 超级用户
+NICKNAME=["山顶洞人", "Ellis", ",", "，"]  # 配置机器人的昵称
+COMMAND_START=[""]  # 配置命令起始字符
+COMMAND_SEP=[" "]  # 配置命令分割字符
+
+#nonebot-plugin-read-60s
+#nonebot-plugin-today-in-history
+daily_qq_friends=[] #设定要发送的QQ好友
+daily_qq_groups=[] #设定要发送的群
+daily_inform_time=[{"hour":7,"minute":30}] 
+#在输入时间的时候 不要 以0开>头如{"HOUR":06,"MINUTE":08}是错误的
+
+#Ellis-weather
+weather_qq_friends=[] #设定要发送的QQ好友 {"qq": xxx "city" : xxx}
+weather_qq_groups=[{"CODE" : 7777777, "CITY" : "城市"},{"CODE":78777777,"CITY":"城市"}, {"CODE" : 666666, "CITY" : "城市"}] #设定要发送的群
+weather_inform_time=[{"HOUR":6,"MINUTE":0},{"HOUR":12,"MINUTE":0},{"HOUR":17,"MINUTE":30}]
+#在输入时间的时候 不要 以0开头如{"HOUR":06,"MINUTE":08}是错误的
+
+# nonebot-plugin-imageutils
+default_fallback_fonts = ["Arial", "Tahoma", "Helvetica Neue", "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Source Han Sans SC", "Noto Sans SC", "Noto Sans CJK JP", "WenQuanYi Micro Hei", "Apple Color Emoji", "Noto Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"]
+
+
+# Ellis-repeat-judger
+repeat_judger_group = [89488989787789] # 可以使用复读判官的群(默认复读结束说话)
+repeat_judger_group_interrupt = [456456464,22312312313, 56465456464564] # 机器人主动打断复读而非结束说话的群
+repeat_judge_threshold = 3 # 判定复读的阈值 默认3
+repeat_judge_threshold_random_add = 2 # 打断功能的判定复读阈值为随机数, 最多在原来的基础上加上这个值 默认0, 结束说话功能不受影响
+
+#Ellis-noise
+noise_qq_friends = [] # 定时发送吵吵消息的人
+noise_qq_groups=[456456464,22312312313, 56465456464564] #定时发送吵吵消息的群
+
+#Ellis-memo
+memo_qq_groups = [456456464,22312312313, 56465456464564] # 定时发送备忘录消息的群
+memo_inform_time = [{"hour":5,"minute":20}]
+
+# nonebot-plugin-today-in-history
+history_qq_friends=[] #设定要发送的QQ好友
+history_qq_groups=[456456464,22312312313, 56465456464564] #设定要发送的群
+history_inform_time="7 35" #设定每天发送时间，以空格间隔
+```
+
+
+
 # 额外说明
 
 **仅供学习使用**
