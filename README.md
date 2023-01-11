@@ -2,7 +2,7 @@
 
 # 描述
 
-一个简单的qqbot
+一个基于nonebot2的简单qqbot(但是nb2版本好久没更新了)
 
 ![sample01](README/sample01.png)
 
