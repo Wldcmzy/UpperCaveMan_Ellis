@@ -42,7 +42,7 @@ def query(thing: str) -> tuple[int, str, Optional[list[Tag]]]:
             return -4, '未找到相应页面,可能此词条百度百科未收录', None
         
         if judgeHua(res.url):
-            logger.warning(f'>>>>>>>>>> baike滑块验证:{res.url}')
+            logger.warning(f'>>>>>>>>>>>>>>> baike滑块验证:{res.url}')
             return -3, f'滑块验证', None
 
         soup = BeautifulSoup(res.text, 'lxml')
@@ -56,11 +56,12 @@ def query(thing: str) -> tuple[int, str, Optional[list[Tag]]]:
 
         lies = soup.find('ul', attrs={'class' : 'polysemantList-wrapper cmn-clearfix'})
         if not judgeNone(lies):
-            lies = lies.find_all('li')[1 : ]
+            lies = lies.find_all('li')
 
             ret += '\n\n输入序号查看其他可能的释义:\n'
             for i, each in enumerate(lies):
-                ret += f'{str(i + 1)}. {each.a.string}\n'
+                if each.a != None:
+                    ret += f'{str(i + 1)}. {each.a.string}\n'
 
         return 0, ret, lies
 
@@ -105,5 +106,11 @@ def query_directly(tag: Tag) -> tuple[int, str]:
 
 if __name__ == '__main__':
     def verify():
-        pass
+        x, y, z = query('猪')
+        print(x)
+        print(y)
+        print(z)
+    
+    # verify()
+
     
