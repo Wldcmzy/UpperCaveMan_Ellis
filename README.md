@@ -8,19 +8,25 @@
 
 # 当前功能
 
-附带链接的均为三方插件(部分有改动)，否则为自制
+附带链接的均为三方插件(部分有改动)，否则为自制，尽量为自制内容都加入配图。
 
 ## 帮助
 
 查看帮助菜单
 
+![help](README/help.jpg)
+
 ## 权限测试
 
-测试群以及超级用户权限
+测试群权限以及超级用户权限
+
+![prvlg](README/prvlg.jpg)
 
 ## 随机数生成
 
 xx的概率是xxx(好玩)
+
+![rand](README/rand.jpg)
 
 ## 查天气
 
@@ -29,9 +35,13 @@ xx的概率是xxx(好玩)
 
 每日三次推送
 
+![weather](README/weather.jpg)
+
 ## 简单CV
 
 已半重置 基本CV功能包括：反转图片，反转一半图片，变灰度图，二值化，滤波，canny边缘检测。参数固定，灵活性不高。
+
+![cv](README/cv.jpg)
 
 ## 备忘录
 
@@ -41,17 +51,29 @@ xx的概率是xxx(好玩)
 
 可定时推送
 
+![memo](README/memo.jpg)
+
 ## 扫雷
 
-基于opencv, 由于之前写了自治版就不想装公开插件了，功能比公开插件要弱一些
+~~这个功能叫明镜止水之心~~
+
+基于opencv, 由于之前写了自制版就不想装公开插件了，功能比公开插件要弱一些
+
+![clearmind](README/clearmind.jpg)
 
 ## 定时吵吵消息
 
 按时烦人
 
+
+
+![noisy](README/noisy.png)![noise](README/noise.jpg)
+
 ## 简单数学运算
 
 gcd，lcm，快速幂，exgcd，逆元（exgcd / 费马小定理），素数判断
+
+![math](README/math.jpg)
 
 ## 复读判官
 
@@ -59,9 +81,13 @@ gcd，lcm，快速幂，exgcd，逆元（exgcd / 费马小定理），素数判�
 
 特性：现在不会打断超级用户、管理员、群主的腿了。
 
+![judger](README/judger.jpg)
+
 ## 百度百科词条查询
 
 把百度百科对所查词条的简介发到群里。
+
+![baike](README/baike.jpg)
 
 ## 疯狂星期四
 

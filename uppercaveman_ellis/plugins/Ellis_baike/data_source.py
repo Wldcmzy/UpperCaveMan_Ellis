@@ -55,15 +55,22 @@ def query(thing: str) -> tuple[int, str, Optional[list[Tag]]]:
         ret = description
 
         lies = soup.find('ul', attrs={'class' : 'polysemantList-wrapper cmn-clearfix'})
+        new_lies = None
         if not judgeNone(lies):
             lies = lies.find_all('li')
 
-            ret += '\n\n输入序号查看其他可能的释义:\n'
-            for i, each in enumerate(lies):
-                if each.a != None:
-                    ret += f'{str(i + 1)}. {each.a.string}\n'
+            ret += '\n|该词条在百度百科中有多种含义,输入序号查看其他可能的释义,无事请按0:\n'
+            ret += '0. 结束查询\n'
 
-        return 0, ret, lies
+            new_lies = []
+            i = 0
+            for each in lies:
+                if each.a != None:
+                    i += 1
+                    ret += f'{str(i)}. {each.a.string}\n'
+                    new_lies.append(each)
+
+        return 0, ret, new_lies
 
     except Exception as e:
         return -2, f'意料之外的错误  {type(e)} | {str(e)}', None

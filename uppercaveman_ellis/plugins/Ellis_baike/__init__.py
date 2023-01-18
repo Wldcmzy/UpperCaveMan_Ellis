@@ -4,6 +4,7 @@ from nonebot.params import CommandArg, Arg
 from nonebot.typing import T_State
 from .data_source import query, query_directly
 from nonebot.log import logger
+from nonebot.exception import FinishedException
 
 baike = on_command('百科', aliases={'查询','baike'},priority=10)
 
@@ -20,16 +21,21 @@ async def q(state: T_State, event : Event, args : Message = CommandArg()):
         await baike.finish(reply)
     else:
         state['extra'] = extra
-        await baike.send(reply)
+        reply_mean, reply_optional = reply.split('|')
+        await baike.send(reply_mean.strip())
+        await baike.send(reply_optional.strip())
     
 @baike.got('index')
 async def qd(state : T_State, extra = Arg('extra')):
 
     try:
         index = int(str(state['index']))
-        assert index >= 1 and index <= len(extra)
+        assert index >= 0 and index <= len(extra)
     except Exception as e:
-        await baike.finish(f'序号错误, 默认查询结束\n{type(e)} | {str(e)}')
+        await baike.finish(f'序号错误, 查询终止\n{type(e)} | {str(e)}')
+    
+    if index == 0:
+        await baike.finish('本轮查询结束')
     
     code, reply = query_directly(extra[index - 1])
 
