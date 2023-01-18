@@ -23,9 +23,9 @@ async def download_url(url: str) -> bytes:
                 resp.raise_for_status()
                 return resp.content
             except Exception as e:
-                logger.warning(f"Error downloading {url}, retry {i}/3: {e}")
+                # logger.warning(f"Error downloading {url}, retry {i}/3: {e}")
                 await asyncio.sleep(3)
-    raise Exception(f"{url} 下载失败！")
+    # raise Exception(f"{url} 下载失败！")
 
 
 async def download_avatar(user_id: str) -> bytes:
@@ -55,14 +55,15 @@ async def check_resources():
             and hashlib.md5(file_path.read_bytes()).hexdigest() == file_hash
         ):
             continue
-        logger.debug(f"Downloading {file_name} ...")
+        # logger.debug(f"Downloading {file_name} ...")
         file_path.parent.mkdir(parents=True, exist_ok=True)
         try:
             data = await download_resource(file_name)
             with file_path.open("wb") as f:
                 f.write(data)
         except Exception as e:
-            logger.warning(str(e))
+            pass
+            # logger.warning(str(e))
 
 
 driver = get_driver()

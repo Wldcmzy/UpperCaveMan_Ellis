@@ -14,10 +14,8 @@ from nonebot.log import logger
 async def __user_privilege(event: Event) -> int:
     bot = nonebot.get_bot()
     if await SUPERUSER(bot, event):
-        logger.debug('\n\n\n SUPERUSER \n\n\n')
         return 0
     elif await GROUP_ADMIN(bot, event) or await GROUP_OWNER(bot, event):
-        logger.debug('\n\n\n 111111111 \n\n\n')
         return 1
     else:
         return 2

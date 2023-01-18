@@ -35,7 +35,9 @@ xx的概率是xxx(好玩)
 
 ## 备忘录
 
-基于sqlite3，预留用户权限判断接口，但是现在即使是几句话也懒得敲。
+基于sqlite3，~~预留用户权限判断接口，但是现在即使是几句话也懒得敲。~~
+
+已经实现写入，查询，删除（删除是真从服务器上删除，非隐藏）
 
 可定时推送
 
@@ -56,6 +58,10 @@ gcd，lcm，快速幂，exgcd，逆元（exgcd / 费马小定理），素数判�
 判断复读打断，或复读结束后总结复读
 
 特性：现在不会打断超级用户、管理员、群主的腿了。
+
+## 百度百科词条查询
+
+把百度百科对所查词条的简介发到群里。
 
 ## 疯狂星期四
 
@@ -129,13 +135,43 @@ destiny...
 
 ## bilibili链接解析
 
+根据bilibili链接回复一些链接的详细内容（回复的带链接部分均删除）
+
 插件链接：[mengshouer/nonebot_plugin_analysis_bilibili: nonebot2解析bilibili插件 (github.com)](https://github.com/mengshouer/nonebot_plugin_analysis_bilibili)
 
 ## 语句抽象化
 
+非常抽象，真的，甚至过于抽象。
+
 插件链接： [CherryCherries/nonebot-plugin-abstract: 适用于 Nonebot2 的语句抽象化插件 (github.com)](https://github.com/CherryCherries/nonebot-plugin-abstract)
 
+# 计划加入的功能
 
+## 贪吃蛇改
+
+## 黑白棋
+
+# 想加入但又没加的功能
+
+## 求生之路2服务器插件
+
+问题在于，我steam设置私有，也没几个人玩呀。
+
+插件链接：[Umamusume-Agnes-Digital/nonebot_plugin_l4d2_server: 基于Nonebot2的插件，用途是求生之路2服务器相关操作 (github.com)](https://github.com/Umamusume-Agnes-Digital/nonebot_plugin_l4d2_server)
+
+# 问题解决
+
+## 1.时效性问题
+
+例如爬虫、API失效。 没治，等作者更新，或者自己修改。
+
+## 2.百度百科词条查询-滑块验证
+
+没通过验证就不能正常访问网页。
+
+从debug信息中找到验证链接，在浏览器手动验证一次，方可解决问题。
+
+用云服务器开机器人好像在本地验证无效，我的解决方案是本地挂云服务器的代理，然后浏览器验证。
 
 # 关于.dev文件
 
