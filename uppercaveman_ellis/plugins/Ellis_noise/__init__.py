@@ -19,9 +19,10 @@ async def autosend_noise() -> None:
     bot = nonebot.get_bot()
     now = datetime.now(pytz.timezone('Asia/Shanghai'))
     switch_dic = {
-        1 : lambda : f'1点乐, 别玩手机乐~',
-        18 : lambda : f'8点乐, 我要早八!',
-        20 : lambda : f'8点乐, 吃水果~',
+        1 : lambda : f'一点乐, 别玩手机乐~',
+        8 : lambda : f'八点乐, 睡觉乐',
+        18 : lambda : f'八点乐, 我要早八!',
+        20 : lambda : f'八点乐, 吃水果~',
     }
     try:
         msg = switch_dic[now.hour]()

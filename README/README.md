@@ -1,5 +1,7 @@
 # 山顶洞人Ellis
 
+#### [查看无配图版本README文件请点击这里](README/README.md)
+
 # 描述
 
 一个基于nonebot2的简单qqbot(但是nb2版本好久没更新了)

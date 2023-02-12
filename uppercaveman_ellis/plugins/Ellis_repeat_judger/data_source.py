@@ -6,7 +6,7 @@ import hashlib
 
 
 async def remove_image_num(msg):
-    '''利用正则匹配所有信息中的图片信息并去除url'''
+    '''利用正则匹配所有信息中的图片信息并去除多余信息'''
     pattern = re.compile('\[CQ:image,file=(\w|\d)*\.image,(.+?)url=https://gchat.qpic.cn/(\w|\d|\/|-|_|\?|=|,)*\]')
     result = pattern.sub(lambda match : match.group().split(',url=')[0] + r"]}", msg)
     # 防止操作系统换行符不同导致的问题
